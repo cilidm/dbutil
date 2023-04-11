@@ -49,7 +49,11 @@ func (m *Model[T]) Find(options *options.ListOptions) (ret []T, count int, err e
 	if err != nil {
 		return
 	}
-	err = query.Sort(options.OrderBy).Skip(options.Limit * (options.Page - 1)).Limit(options.Limit).All(&ret)
+
+	if options.OrderBy == "" {
+		query = query.Sort(options.OrderBy)
+	}
+	err = query.Skip(options.Limit * (options.Page - 1)).Limit(options.Limit).All(&ret)
 	switch err {
 	case nil:
 		return
