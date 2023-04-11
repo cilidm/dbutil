@@ -1,2 +1,2 @@
-# dbutil
+# util
 db-util
